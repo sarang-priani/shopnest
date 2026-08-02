@@ -55,5 +55,8 @@ const loginUser = async (req, res) => {
       res.status(500).json({ message: error.message });
     }
   };
+  const getUserProfile = async (req, res) => {
+    res.status(200).json(req.user);
+  };
 
-  module.exports = { registerUser, loginUser };
+  module.exports = { registerUser, loginUser,getUserProfile };
