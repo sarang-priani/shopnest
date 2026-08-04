@@ -1,15 +1,22 @@
 const Product = require("../models/Product");
 
 const createProduct = async (req, res) => {
-  try {
-    const { name, description, price, category, image, stock } = req.body;
+        try {
+        
+      
+       
+
+    const { name, description, price, category, stock } = req.body;
+    if (!req.file) {
+        return res.status(400).json({ message: "Product image is required" });
+      }
 
     const product = await Product.create({
       name,
       description,
       price,
       category,
-      image,
+      image: req.file.path,
       stock,
       createdBy: req.user._id,
     });
@@ -51,14 +58,17 @@ const updateProduct = async (req, res) => {
       return res.status(404).json({ message: "Product not found" });
     }
 
-    const { name, description, price, category, image, stock } = req.body;
+    const { name, description, price, category,  stock } = req.body;
 
     product.name = name || product.name;
     product.description = description || product.description;
     product.price = price ?? product.price;
     product.category = category || product.category;
-    product.image = image || product.image;
+    
     product.stock = stock ?? product.stock;
+    if (req.file) {
+        product.image = req.file.path;
+      }
 
     const updatedProduct = await product.save();
 
