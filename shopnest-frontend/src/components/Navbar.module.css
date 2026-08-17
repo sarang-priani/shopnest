@@ -1,30 +1,185 @@
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    background-color: #1a1a1a;
-    color: white;
-  }
-  
-  .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: white;
-    text-decoration: none;
-  }
-  
-  .links {
-    display: flex;
-    gap: 1.5rem;
-  }
-  
-  .link {
-    color: white;
-    text-decoration: none;
-    font-size: 1rem;
-  }
-  
-  .link:hover {
-    color: #cccccc;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.9rem 1.75rem;
+  background-color: #17171a;
+  color: white;
+  border-bottom: 0.5px solid #2a2a2a;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: white;
+  text-decoration: none;
+  letter-spacing: -0.3px;
+}
+
+.logoIcon {
+  color: #f4b942;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+}
+
+.link {
+  color: #b5b5b8;
+  text-decoration: none;
+  font-size: 0.9rem;
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+  transition: 0.2s;
+}
+
+.link:hover {
+  color: white;
+}
+
+.active {
+  color: #f4b942;
+  border-bottom-color: #f4b942;
+}
+
+.divider {
+  width: 0.5px;
+  height: 18px;
+  background-color: #333;
+}
+
+.icon {
+  color: #b5b5b8;
+  transition: 0.2s;
+}
+
+.cartLink {
+  position: relative;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.cartLink:hover .icon,
+.wishlistLink:hover .icon {
+  color: white;
+}
+
+.wishlistLink {
+  position: relative;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.badge {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background-color: #f4b942;
+  color: #17171a;
+  font-size: 0.7rem;
+  font-weight: 700;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+}
+
+.userMenu {
+  position: relative;
+}
+
+.userTrigger {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  color: #b5b5b8;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 4px 6px;
+  border-radius: 6px;
+  transition: 0.2s;
+}
+
+.userTrigger:hover {
+  color: white;
+  background-color: #2a2a2a;
+}
+
+.userName {
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chevron {
+  transition: transform 0.2s;
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background-color: #252528;
+  border: 1px solid #3a3a3a;
+  border-radius: 8px;
+  min-width: 180px;
+  padding: 6px 0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  z-index: 100;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 16px;
+  color: #ccc;
+  text-decoration: none;
+  font-size: 0.88rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: 0.15s;
+}
+
+.dropdownItem:hover {
+  background-color: #333;
+  color: white;
+}
+
+.dropdownDivider {
+  height: 1px;
+  background-color: #3a3a3a;
+  margin: 4px 0;
+}
+
+.loginLink {
+  color: #f4b942;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.loginLink:hover {
+  color: #ffc95c;
+}

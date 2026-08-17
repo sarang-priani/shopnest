@@ -1,5 +1,9 @@
 const Cart = require("../models/Cart");
 
+const populateCart = async (cart) => {
+  return cart.populate("items.product");
+};
+
 const addToCart = async (req, res) => {
   try {
     const { productId, quantity } = req.body;
@@ -12,7 +16,7 @@ const addToCart = async (req, res) => {
         user: req.user._id,
         items: [{ product: productId, quantity: qtyToAdd }],
       });
-      return res.status(201).json(cart);
+      return res.status(201).json(await populateCart(cart));
     }
 
     const existingItem = cart.items.find(
@@ -27,7 +31,7 @@ const addToCart = async (req, res) => {
 
     await cart.save();
 
-    res.status(200).json(cart);
+    res.status(200).json(await populateCart(cart));
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -72,7 +76,7 @@ const updateCartItem = async (req, res) => {
 
     await cart.save();
 
-    res.status(200).json(cart);
+    res.status(200).json(await populateCart(cart));
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -94,7 +98,7 @@ const removeFromCart = async (req, res) => {
 
     await cart.save();
 
-    res.status(200).json(cart);
+    res.status(200).json(await populateCart(cart));
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

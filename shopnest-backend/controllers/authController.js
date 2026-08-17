@@ -59,4 +59,21 @@ const loginUser = async (req, res) => {
     res.status(200).json(req.user);
   };
 
-  module.exports = { registerUser, loginUser,getUserProfile };
+  const promoteToAdmin = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const user = await User.findOneAndUpdate(
+      { email },
+      { isAdmin: true },
+      { returnDocument: "after" }
+    ).select("-password");
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.json({ message: "User promoted to admin", user });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { registerUser, loginUser, getUserProfile, promoteToAdmin };
