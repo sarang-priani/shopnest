@@ -6,17 +6,18 @@ import { useAuth } from '../context/AuthContext';
 import styles from './ProductCard.module.css';
 
 function ProductCard({ product }) {
-  const { toggleWishlist, isWishlisted } = useWishlist();
+  const { toggleWishlist, items } = useWishlist();
   const { user } = useAuth();
-  const [liked, setLiked] = useState(() => isWishlisted(product._id));
+  const [optimisticLiked, setOptimisticLiked] = useState(null);
+  const liked = optimisticLiked ?? items.some((p) => p._id === product._id);
 
   const handleWishlist = async (e) => {
     e.preventDefault();
     e.stopPropagation();
     if (!user) return;
-    const newState = !liked;
-    setLiked(newState);
+    setOptimisticLiked(!liked);
     await toggleWishlist(product._id);
+    setOptimisticLiked(null);
   };
 
   return (

@@ -8,7 +8,7 @@ function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const { login, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -57,6 +57,38 @@ function LoginPage() {
         <button type="submit" className={styles.button} disabled={loading}>
           {loading ? 'Logging in...' : 'Log In'}
         </button>
+
+        <div className={styles.divider}>
+          <span>or</span>
+        </div>
+
+        <button
+          type="button"
+          className={styles.adminBtn}
+          disabled={loading}
+          onClick={async () => {
+            setError('');
+            setLoading(true);
+            try {
+              const data = await login(email, password);
+              if (!data.isAdmin) {
+                logout();
+                setError('Only admin accounts can access the dashboard');
+                return;
+              }
+              navigate('/admin');
+            } catch (err) {
+              setError(err.message);
+            } finally {
+              setLoading(false);
+            }
+          }}
+        >
+          Login as Admin
+        </button>
+        <p className={styles.adminHint}>
+          Use the admin credentials above (e.g. admin@shopnest.com)
+        </p>
 
         <p className={styles.footer}>
           Don&apos;t have an account?{' '}

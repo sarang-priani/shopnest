@@ -11,7 +11,8 @@ const addToWishlist = async (req, res) => {
         user: req.user._id,
         products: [productId],
       });
-      return res.status(201).json(wishlist);
+      const populated = await wishlist.populate("products");
+      return res.status(201).json(populated);
     }
 
     const alreadyExists = wishlist.products.some(
@@ -25,7 +26,8 @@ const addToWishlist = async (req, res) => {
     wishlist.products.push(productId);
     await wishlist.save();
 
-    res.status(200).json(wishlist);
+    const populated = await wishlist.populate("products");
+    res.status(200).json(populated);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -47,7 +49,8 @@ const removeFromWishlist = async (req, res) => {
 
     await wishlist.save();
 
-    res.status(200).json(wishlist);
+    const populated = await wishlist.populate("products");
+    res.status(200).json(populated);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

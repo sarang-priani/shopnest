@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { apiFetch } from '../utils/api';
 import { useAuth } from './AuthContext';
 
@@ -8,11 +8,6 @@ export function WishlistProvider({ children }) {
   const { user } = useAuth();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
-  const itemsRef = useRef(items);
-
-  useEffect(() => {
-    itemsRef.current = items;
-  }, [items]);
 
   useEffect(() => {
     if (!user) {
@@ -35,8 +30,13 @@ export function WishlistProvider({ children }) {
   }, [user]);
 
   const toggleWishlist = useCallback(async (productId) => {
-    const currentItems = itemsRef.current;
-    const isInWishlist = currentItems.some((p) => p._id === productId);
+    const isInWishlist = items.some((p) => p._id === productId);
+    const prev = items;
+    if (isInWishlist) {
+      setItems(items.filter((p) => p._id !== productId));
+    } else {
+      setItems([...items, { _id: productId }]);
+    }
     try {
       if (isInWishlist) {
         const data = await apiFetch(`/wishlist/${productId}`, { method: 'DELETE' });
@@ -49,18 +49,14 @@ export function WishlistProvider({ children }) {
         setItems(data.products || []);
       }
     } catch {
-      // silent — UI won't update on error
+      setItems(prev);
     }
-  }, []);
-
-  const isWishlisted = useCallback((productId) => {
-    return itemsRef.current.some((p) => p._id === productId);
-  }, []);
+  }, [items]);
 
   const itemCount = items.length;
 
   return (
-    <WishlistContext.Provider value={{ items, toggleWishlist, isWishlisted, itemCount, loading }}>
+    <WishlistContext.Provider value={{ items, toggleWishlist, itemCount, loading }}>
       {children}
     </WishlistContext.Provider>
   );
@@ -70,7 +66,7 @@ export function WishlistProvider({ children }) {
 export function useWishlist() {
   const context = useContext(WishlistContext);
   if (!context) {
-    return { items: [], toggleWishlist: async () => {}, isWishlisted: () => false, itemCount: 0, loading: false };
+    return { items: [], toggleWishlist: async () => {}, itemCount: 0, loading: false };
   }
   return context;
 }

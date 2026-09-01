@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { ShoppingBag, ShoppingCart, Heart, User, LogOut, Package, ChevronDown } from 'lucide-react';
+import { ShoppingBag, ShoppingCart, Heart, User, LogOut, Package, ChevronDown, Shield } from 'lucide-react';
 import styles from './Navbar.module.css';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
@@ -52,15 +52,6 @@ function Navbar() {
           Products
         </Link>
 
-        {user && user.isAdmin && (
-          <Link
-            to="/admin"
-            className={`${styles.link} ${location.pathname.startsWith('/admin') ? styles.active : ''}`}
-          >
-            Admin
-          </Link>
-        )}
-
         <div className={styles.divider} />
 
         <Link to="/cart" className={styles.cartLink}>
@@ -85,6 +76,12 @@ function Navbar() {
             </button>
             {menuOpen && (
               <div className={styles.dropdown}>
+                {user.isAdmin && (
+                  <Link to="/admin" className={styles.dropdownItem} onClick={() => setMenuOpen(false)}>
+                    <Shield size={16} />
+                    Admin Dashboard
+                  </Link>
+                )}
                 <Link to="/orders" className={styles.dropdownItem} onClick={() => setMenuOpen(false)}>
                   <Package size={16} />
                   My Orders

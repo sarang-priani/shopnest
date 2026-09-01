@@ -95,3 +95,49 @@
 .link:hover {
   text-decoration: underline;
 }
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 1.25rem 0;
+  color: #555;
+  font-size: 0.8rem;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background-color: #333;
+}
+
+.adminBtn {
+  width: 100%;
+  padding: 0.7rem;
+  background-color: transparent;
+  color: #f4b942;
+  border: 1px solid #f4b942;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.adminBtn:hover {
+  background-color: rgba(244, 185, 66, 0.1);
+}
+
+.adminBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.adminHint {
+  color: #9a9aa0;
+  font-size: 0.78rem;
+  text-align: center;
+  margin-top: 0.75rem;
+}
