@@ -1,0 +1,5 @@
+{
+  "root": "shopnest-frontend",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist"
+}
