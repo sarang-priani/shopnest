@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { ShoppingBag, ShoppingCart, Heart, User, LogOut, Package, ChevronDown, Shield } from 'lucide-react';
+import { ShoppingBag, ShoppingCart, Heart, User, LogOut, Package, ChevronDown, Shield, Menu, X } from 'lucide-react';
 import styles from './Navbar.module.css';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
@@ -25,6 +25,10 @@ function Navbar() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
+
   const handleLogout = () => {
     logout();
     setMenuOpen(false);
@@ -38,7 +42,16 @@ function Navbar() {
         ShopNest
       </Link>
 
-      <div className={styles.links}>
+      <button
+        className={styles.hamburger}
+        onClick={() => setMenuOpen(!menuOpen)}
+        aria-label="Toggle menu"
+        aria-expanded={menuOpen}
+      >
+        {menuOpen ? <X size={22} /> : <Menu size={22} />}
+      </button>
+
+      <div className={`${styles.links} ${menuOpen ? styles.show : ''}`} onClick={() => setMenuOpen(false)}>
         <Link
           to="/"
           className={`${styles.link} ${location.pathname === '/' ? styles.active : ''}`}

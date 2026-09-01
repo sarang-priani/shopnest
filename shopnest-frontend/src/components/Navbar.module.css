@@ -1,4 +1,5 @@
 .navbar {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -183,3 +184,70 @@
 .loginLink:hover {
   color: #ffc95c;
 }
+
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 4px;
+}
+
+@media (max-width: 860px) {
+  .hamburger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 110;
+  }
+
+  .links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    background-color: #17171a;
+    border-bottom: 1px solid #2a2a2a;
+    padding: 0.5rem 1.75rem 1rem;
+    display: none;
+  }
+
+  .links.show {
+    display: flex;
+  }
+
+  .link,
+  .cartLink,
+  .wishlistLink,
+  .loginLink,
+  .userTrigger {
+    width: 100%;
+    padding: 0.8rem 0;
+  }
+
+  .divider {
+    display: none;
+  }
+
+  .cartLink,
+  .wishlistLink {
+    justify-content: flex-start;
+    gap: 8px;
+    color: #b5b5b8;
+  }
+
+  .userMenu {
+    width: 100%;
+  }
+
+  .dropdown {
+    position: static;
+    min-width: 100%;
+    margin-top: 4px;
+  }
+}
+
