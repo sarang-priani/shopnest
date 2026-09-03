@@ -248,6 +248,15 @@
   color: #9a9aa0;
 }
 
+.deliveredDate {
+  color: #9a9aa0;
+  font-size: 0.85rem;
+}
+
+.deliveredDate .dash {
+  color: #555;
+}
+
 .actions {
   display: flex;
   gap: 0.5rem;

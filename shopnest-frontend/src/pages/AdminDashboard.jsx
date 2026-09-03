@@ -380,6 +380,11 @@ function AdminDashboard() {
                   >
                     {selectedOrder.isDelivered ? 'Delivered' : 'Pending'}
                   </span>
+                  {selectedOrder.isDelivered && selectedOrder.deliveredAt && (
+                    <p className={styles.detailText}>
+                      Delivered on {new Date(selectedOrder.deliveredAt).toLocaleDateString()}
+                    </p>
+                  )}
                   {!selectedOrder.isDelivered && (
                     <button
                       className={styles.deliverBtn}
@@ -437,6 +442,7 @@ function AdminDashboard() {
                       <th>Date</th>
                       <th>Total</th>
                       <th>Status</th>
+                      <th>Delivered</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
@@ -451,6 +457,11 @@ function AdminDashboard() {
                           <span className={`${styles.statusBadge} ${order.isDelivered ? styles.delivered : styles.pending}`}>
                             {order.isDelivered ? 'Delivered' : 'Pending'}
                           </span>
+                        </td>
+                        <td className={styles.deliveredDate}>
+                          {order.isDelivered && order.deliveredAt
+                            ? new Date(order.deliveredAt).toLocaleDateString()
+                            : <span className={styles.dash}>—</span>}
                         </td>
                         <td>
                           <div className={styles.actions}>
