@@ -98,7 +98,7 @@ function Navbar() {
             </button>
             {dropdownOpen && (
               <div className={styles.dropdown}>
-                {user.isAdmin && (
+                {user.isAdmin && user.adminMode && (
                   <Link to="/admin" className={styles.dropdownItem} onClick={() => setDropdownOpen(false)}>
                     <Shield size={16} />
                     Admin Dashboard

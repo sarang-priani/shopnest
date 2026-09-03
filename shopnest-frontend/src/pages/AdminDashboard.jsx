@@ -8,6 +8,7 @@ function AdminDashboard() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [tab, setTab] = useState('products');
+  const [selectedOrder, setSelectedOrder] = useState(null);
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -343,48 +344,139 @@ function AdminDashboard() {
 
       {tab === 'orders' && (
         <div className={styles.section}>
-          <h2 className={styles.sectionTitle}>All Orders</h2>
-          <div className={styles.tableWrapper}>
-            <table className={styles.table}>
-              <thead>
-                <tr>
-                  <th>Order ID</th>
-                  <th>User</th>
-                  <th>Date</th>
-                  <th>Total</th>
-                  <th>Status</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {orders.map((order) => (
-                  <tr key={order._id}>
-                    <td className={styles.orderIdCell}>#{order._id.slice(-8).toUpperCase()}</td>
-                    <td>{order.user?.name || 'Unknown'}</td>
-                    <td>{new Date(order.createdAt).toLocaleDateString()}</td>
-                    <td>₹{order.totalPrice}</td>
-                    <td>
-                      <span className={`${styles.statusBadge} ${order.isDelivered ? styles.delivered : styles.pending}`}>
-                        {order.isDelivered ? 'Delivered' : 'Pending'}
-                      </span>
-                    </td>
-                    <td>
-                      <div className={styles.actions}>
-                        {!order.isDelivered && (
-                          <button
-                            className={styles.deliverBtn}
-                            onClick={() => handleMarkDelivered(order._id)}
-                          >
-                            Mark Delivered
-                          </button>
-                        )}
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          {selectedOrder ? (
+            <div className={styles.orderDetail}>
+              <div className={styles.detailHeader}>
+                <button className={styles.backBtn} onClick={() => setSelectedOrder(null)}>
+                  ← Back to Orders
+                </button>
+                <h2 className={styles.sectionTitle}>
+                  Order #{selectedOrder._id.slice(-8).toUpperCase()}
+                </h2>
+              </div>
+
+              <div className={styles.detailCard}>
+                <div className={styles.detailBlock}>
+                  <h3 className={styles.detailTitle}>Customer</h3>
+                  <p className={styles.detailText}>{selectedOrder.user?.name || 'Unknown'}</p>
+                  <p className={styles.detailText}>{selectedOrder.user?.email}</p>
+                </div>
+                <div className={styles.detailBlock}>
+                  <h3 className={styles.detailTitle}>Shipping Address</h3>
+                  <p className={styles.detailText}>{selectedOrder.shippingAddress?.address}</p>
+                  <p className={styles.detailText}>
+                    {selectedOrder.shippingAddress?.city}, {selectedOrder.shippingAddress?.postalCode}
+                  </p>
+                  <p className={styles.detailText}>{selectedOrder.shippingAddress?.country}</p>
+                </div>
+                <div className={styles.detailBlock}>
+                  <h3 className={styles.detailTitle}>Payment</h3>
+                  <p className={styles.detailText}>{selectedOrder.paymentMethod}</p>
+                </div>
+                <div className={styles.detailBlock}>
+                  <h3 className={styles.detailTitle}>Status</h3>
+                  <span
+                    className={`${styles.statusBadge} ${selectedOrder.isDelivered ? styles.delivered : styles.pending}`}
+                  >
+                    {selectedOrder.isDelivered ? 'Delivered' : 'Pending'}
+                  </span>
+                  {!selectedOrder.isDelivered && (
+                    <button
+                      className={styles.deliverBtn}
+                      onClick={() => { handleMarkDelivered(selectedOrder._id); setSelectedOrder(null); }}
+                    >
+                      Mark Delivered
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              <h3 className={styles.detailTitle}>Order Items</h3>
+              <div className={styles.tableWrapper}>
+                <table className={styles.table}>
+                  <thead>
+                    <tr>
+                      <th>Product</th>
+                      <th>Price</th>
+                      <th>Qty</th>
+                      <th>Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {selectedOrder.orderItems?.map((item, idx) => (
+                      <tr key={idx}>
+                        <td>
+                          <div className={styles.productCell}>
+                            {item.image && <img src={item.image} alt="" className={styles.tableImage} />}
+                            <span>{item.name}</span>
+                          </div>
+                        </td>
+                        <td>₹{item.price}</td>
+                        <td>{item.quantity}</td>
+                        <td>₹{item.price * item.quantity}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              <div className={styles.detailTotal}>
+                <span>Total</span>
+                <span>₹{selectedOrder.totalPrice}</span>
+              </div>
+            </div>
+          ) : (
+            <>
+              <h2 className={styles.sectionTitle}>All Orders</h2>
+              <div className={styles.tableWrapper}>
+                <table className={styles.table}>
+                  <thead>
+                    <tr>
+                      <th>Order ID</th>
+                      <th>User</th>
+                      <th>Date</th>
+                      <th>Total</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {orders.map((order) => (
+                      <tr key={order._id}>
+                        <td className={styles.orderIdCell}>#{order._id.slice(-8).toUpperCase()}</td>
+                        <td>{order.user?.name || 'Unknown'}</td>
+                        <td>{new Date(order.createdAt).toLocaleDateString()}</td>
+                        <td>₹{order.totalPrice}</td>
+                        <td>
+                          <span className={`${styles.statusBadge} ${order.isDelivered ? styles.delivered : styles.pending}`}>
+                            {order.isDelivered ? 'Delivered' : 'Pending'}
+                          </span>
+                        </td>
+                        <td>
+                          <div className={styles.actions}>
+                            <button
+                              className={styles.viewBtn}
+                              onClick={() => setSelectedOrder(order)}
+                            >
+                              View
+                            </button>
+                            {!order.isDelivered && (
+                              <button
+                                className={styles.deliverBtn}
+                                onClick={() => handleMarkDelivered(order._id)}
+                              >
+                                Mark Delivered
+                              </button>
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </>
+          )}
         </div>
       )}
     </div>

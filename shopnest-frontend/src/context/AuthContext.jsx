@@ -40,8 +40,18 @@ export function AuthProvider({ children }) {
     localStorage.removeItem('shopnest_user');
   };
 
+  const setAdminMode = async (enabled) => {
+    setUser((prev) => {
+      const next = prev ? { ...prev, adminMode: enabled } : prev;
+      if (next) {
+        localStorage.setItem('shopnest_user', JSON.stringify(next));
+      }
+      return next;
+    });
+  };
+
   return (
-    <AuthContext.Provider value={{ user, setUser, login, register, logout }}>
+    <AuthContext.Provider value={{ user, setUser, login, register, logout, setAdminMode }}>
       {children}
     </AuthContext.Provider>
   );

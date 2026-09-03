@@ -313,3 +313,109 @@
   background-color: rgba(244, 185, 66, 0.15);
   color: #f4b942;
 }
+
+.viewBtn {
+  background: none;
+  border: 1px solid #444;
+  color: #b5b5b8;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.viewBtn:hover {
+  color: white;
+  border-color: #888;
+}
+
+.backBtn {
+  background: none;
+  border: none;
+  color: #b5b5b8;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0;
+  transition: 0.2s;
+}
+
+.backBtn:hover {
+  color: #f4b942;
+}
+
+.orderDetail {
+  animation: fade 0.2s ease;
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.detailHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.detailHeader .sectionTitle {
+  margin: 0;
+}
+
+.detailCard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  background-color: #1e1e22;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.detailBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.detailTitle {
+  color: white;
+  font-size: 0.85rem;
+  margin: 0 0 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.detailText {
+  color: #b5b5b8;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.detailBlock .deliverBtn {
+  margin-top: 0.6rem;
+  align-self: flex-start;
+}
+
+.detailTotal {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 1.25rem;
+  padding: 1rem 1.25rem;
+  background-color: #1e1e22;
+  border: 1px solid #333;
+  border-radius: 8px;
+  color: white;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.detailTotal span:first-child {
+  color: #9a9aa0;
+  font-weight: 500;
+}

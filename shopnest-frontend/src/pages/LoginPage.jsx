@@ -8,7 +8,7 @@ function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login, logout } = useAuth();
+  const { login, logout, setAdminMode } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -76,6 +76,7 @@ function LoginPage() {
                 setError('Only admin accounts can access the dashboard');
                 return;
               }
+              await setAdminMode(true);
               navigate('/admin');
             } catch (err) {
               setError(err.message);
