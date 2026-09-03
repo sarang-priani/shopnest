@@ -1,0 +1,264 @@
+.page {
+  padding: 2rem 1.75rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  min-height: 60vh;
+}
+
+.hero {
+  text-align: center;
+  padding: 1.5rem 0 2.5rem;
+}
+
+.heroIcon {
+  color: #f4b942;
+  margin-bottom: 0.5rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  color: #9a9aa0;
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.contacts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.contactCard {
+  background-color: #1e1e22;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+.contactCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  border-color: #3a3a3a;
+}
+
+.contactIcon {
+  color: #f4b942;
+}
+
+.contactTitle {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #9a9aa0;
+  margin: 0.8rem 0 0.3rem;
+}
+
+.contactValue {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: white;
+  margin: 0;
+  word-break: break-word;
+}
+
+.contactHint {
+  font-size: 0.8rem;
+  color: #888;
+  margin: 0.3rem 0 0;
+}
+
+.section {
+  margin-top: 3rem;
+}
+
+.sectionTitle {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0 0 1.25rem;
+  letter-spacing: -0.4px;
+}
+
+.policyGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.policyCard {
+  background-color: #1e1e22;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.policyCard:hover {
+  transform: translateY(-4px);
+  border-color: #3a3a3a;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.policyIcon {
+  color: #f4b942;
+}
+
+.policyCardTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0.9rem 0 0.5rem;
+}
+
+.policyDesc {
+  font-size: 0.88rem;
+  color: #9a9aa0;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.faqList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.faq {
+  background-color: #1e1e22;
+  border: 1px solid #2a2a2a;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.faq:hover {
+  border-color: #3a3a3a;
+}
+
+.faqQ {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.95rem;
+  list-style: none;
+  user-select: none;
+  color: white;
+}
+
+.faqQ::-webkit-details-marker {
+  display: none;
+}
+
+.faqIcon {
+  color: #f4b942;
+  flex-shrink: 0;
+}
+
+.faqA {
+  padding: 0 1.25rem 1.25rem;
+  margin: 0;
+  color: #9a9aa0;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  border-top: 1px solid #2a2a2a;
+  padding-top: 1rem;
+}
+
+.visitCard {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: #1e1e22;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.visitIcon {
+  color: #f4b942;
+  flex-shrink: 0;
+}
+
+.visitText {
+  margin: 0;
+  color: #b5b5b8;
+  line-height: 1.7;
+}
+
+.cta {
+  margin-top: 3rem;
+  text-align: center;
+  background: linear-gradient(135deg, #232326, #17171a);
+  border: 1px solid #2a2a2a;
+  border-radius: 14px;
+  padding: 2.5rem 2rem;
+}
+
+.ctaTitle {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+}
+
+.ctaText {
+  color: #9a9aa0;
+  margin: 0 auto 1.5rem;
+  max-width: 460px;
+}
+
+.ctaBtns {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.primaryBtn {
+  padding: 0.7rem 1.6rem;
+  background-color: #f4b942;
+  color: #17171a;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.primaryBtn:hover {
+  background-color: #e5a933;
+}
+
+.secondaryBtn {
+  padding: 0.7rem 1.6rem;
+  background-color: transparent;
+  color: #f4b942;
+  border: 1px solid #f4b942;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.secondaryBtn:hover {
+  background-color: rgba(244, 185, 66, 0.1);
+}
+
+@media (max-width: 600px) {
+  .page {
+    padding: 1.5rem 1rem;
+  }
+
+  .title {
+    font-size: 1.6rem;
+  }
+}

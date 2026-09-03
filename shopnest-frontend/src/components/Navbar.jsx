@@ -73,6 +73,13 @@ function Navbar() {
         >
           Products
         </Link>
+        <Link
+          to="/support"
+          className={`${styles.link} ${location.pathname === '/support' ? styles.active : ''}`}
+          onClick={handleMobileNav}
+        >
+          Customer Care
+        </Link>
 
         <div className={styles.divider} />
 

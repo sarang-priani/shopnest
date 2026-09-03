@@ -12,6 +12,7 @@ import OrderHistoryPage from './pages/OrderHistoryPage';
 import OrderDetailPage from './pages/OrderDetailPage';
 import AdminDashboard from './pages/AdminDashboard';
 import WishlistPage from './pages/WishlistPage';
+import CustomerCarePage from './pages/CustomerCarePage';
 import AdminRoute from './components/AdminRoute';
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
           <Route path="/orders" element={<OrderHistoryPage />} />
           <Route path="/orders/:id" element={<OrderDetailPage />} />
           <Route path="/wishlist" element={<WishlistPage />} />
+          <Route path="/support" element={<CustomerCarePage />} />
           <Route
             path="/admin"
             element={
