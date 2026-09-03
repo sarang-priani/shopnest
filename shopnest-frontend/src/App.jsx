@@ -12,6 +12,7 @@ import OrderHistoryPage from './pages/OrderHistoryPage';
 import OrderDetailPage from './pages/OrderDetailPage';
 import AdminDashboard from './pages/AdminDashboard';
 import WishlistPage from './pages/WishlistPage';
+import AdminRoute from './components/AdminRoute';
 
 function App() {
   return (
@@ -30,7 +31,14 @@ function App() {
           <Route path="/orders" element={<OrderHistoryPage />} />
           <Route path="/orders/:id" element={<OrderDetailPage />} />
           <Route path="/wishlist" element={<WishlistPage />} />
-          <Route path="/admin" element={<AdminDashboard />} />
+          <Route
+            path="/admin"
+            element={
+              <AdminRoute>
+                <AdminDashboard />
+              </AdminRoute>
+            }
+          />
         </Routes>
       </main>
 
