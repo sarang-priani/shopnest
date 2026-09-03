@@ -12,13 +12,14 @@ function Navbar() {
   const { user, logout } = useAuth();
   const { itemCount } = useCart();
   const { itemCount: wishlistCount } = useWishlist();
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const menuRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (menuRef.current && !menuRef.current.contains(e.target)) {
-        setMenuOpen(false);
+        setDropdownOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -26,13 +27,19 @@ function Navbar() {
   }, []);
 
   useEffect(() => {
-    setMenuOpen(false);
+    setMobileOpen(false);
+    setDropdownOpen(false);
   }, [location.pathname]);
 
   const handleLogout = () => {
     logout();
-    setMenuOpen(false);
+    setMobileOpen(false);
+    setDropdownOpen(false);
     navigate('/');
+  };
+
+  const handleMobileNav = () => {
+    setMobileOpen(false);
   };
 
   return (
@@ -44,35 +51,37 @@ function Navbar() {
 
       <button
         className={styles.hamburger}
-        onClick={() => setMenuOpen(!menuOpen)}
+        onClick={() => setMobileOpen(!mobileOpen)}
         aria-label="Toggle menu"
-        aria-expanded={menuOpen}
+        aria-expanded={mobileOpen}
       >
-        {menuOpen ? <X size={22} /> : <Menu size={22} />}
+        {mobileOpen ? <X size={22} /> : <Menu size={22} />}
       </button>
 
-      <div className={`${styles.links} ${menuOpen ? styles.show : ''}`} onClick={() => setMenuOpen(false)}>
+      <div className={`${styles.links} ${mobileOpen ? styles.show : ''}`}>
         <Link
           to="/"
           className={`${styles.link} ${location.pathname === '/' ? styles.active : ''}`}
+          onClick={handleMobileNav}
         >
           Home
         </Link>
         <Link
           to="/products"
           className={`${styles.link} ${location.pathname === '/products' ? styles.active : ''}`}
+          onClick={handleMobileNav}
         >
           Products
         </Link>
 
         <div className={styles.divider} />
 
-        <Link to="/cart" className={styles.cartLink}>
+        <Link to="/cart" className={styles.cartLink} onClick={handleMobileNav}>
           <ShoppingCart size={20} className={styles.icon} />
           {itemCount > 0 && <span className={styles.badge} data-testid="cart-badge">{itemCount}</span>}
         </Link>
 
-        <Link to="/wishlist" className={styles.wishlistLink}>
+        <Link to="/wishlist" className={styles.wishlistLink} onClick={handleMobileNav}>
           <Heart size={20} className={styles.icon} />
           {wishlistCount > 0 && <span className={styles.badge} data-testid="wishlist-badge">{wishlistCount}</span>}
         </Link>
@@ -81,25 +90,25 @@ function Navbar() {
           <div className={styles.userMenu} ref={menuRef}>
             <button
               className={styles.userTrigger}
-              onClick={() => setMenuOpen(!menuOpen)}
+              onClick={() => setDropdownOpen(!dropdownOpen)}
             >
               <User size={16} />
               <span className={styles.userName}>{user.name}</span>
-              <ChevronDown size={14} className={`${styles.chevron} ${menuOpen ? styles.chevronOpen : ''}`} />
+              <ChevronDown size={14} className={`${styles.chevron} ${dropdownOpen ? styles.chevronOpen : ''}`} />
             </button>
-            {menuOpen && (
+            {dropdownOpen && (
               <div className={styles.dropdown}>
                 {user.isAdmin && (
-                  <Link to="/admin" className={styles.dropdownItem} onClick={() => setMenuOpen(false)}>
+                  <Link to="/admin" className={styles.dropdownItem} onClick={() => setDropdownOpen(false)}>
                     <Shield size={16} />
                     Admin Dashboard
                   </Link>
                 )}
-                <Link to="/orders" className={styles.dropdownItem} onClick={() => setMenuOpen(false)}>
+                <Link to="/orders" className={styles.dropdownItem} onClick={() => setDropdownOpen(false)}>
                   <Package size={16} />
                   My Orders
                 </Link>
-                <Link to="/wishlist" className={styles.dropdownItem} onClick={() => setMenuOpen(false)}>
+                <Link to="/wishlist" className={styles.dropdownItem} onClick={() => setDropdownOpen(false)}>
                   <Heart size={16} />
                   Wishlist
                 </Link>
@@ -112,7 +121,7 @@ function Navbar() {
             )}
           </div>
         ) : (
-          <Link to="/login" className={styles.loginLink}>Log In</Link>
+          <Link to="/login" className={styles.loginLink} onClick={handleMobileNav}>Log In</Link>
         )}
       </div>
     </nav>
